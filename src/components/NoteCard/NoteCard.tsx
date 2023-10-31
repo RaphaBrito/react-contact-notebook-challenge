@@ -1,4 +1,4 @@
-import "./NoteCard.css";
+import styles from "../../styles/note-card.module.css";
 
 import type { Note } from "../../types/Note";
 
@@ -16,7 +16,7 @@ export function NoteCard({
   onEdit,
 }: NoteCardInput) {
   return (
-    <div className="card">
+    <div className={styles.card}>
       <h3>{note.title}</h3>
       <p>{note.description}</p>
       <div>

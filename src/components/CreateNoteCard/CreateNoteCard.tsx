@@ -2,6 +2,8 @@ import "./CreateNoteCard.css";
 
 import { useState } from "react";
 
+import styles from "../../styles/note-card.module.css";
+
 import type { NoteFormData } from "../../types/Note";
 
 interface CreateNoteCardInput {
@@ -38,7 +40,7 @@ export function CreateNoteCard({ isMutating, onCreate }: CreateNoteCardInput) {
   }
 
   return (
-    <div className="card">
+    <div className={styles.card}>
       <h3>new title</h3>
       <input
         value={title}

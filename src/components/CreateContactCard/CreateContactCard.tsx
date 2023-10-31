@@ -1,10 +1,9 @@
-import "./CreateContactCard.css";
-
 import { useState } from "react";
 
 import EmailIcon from "../../assets/icons/e-mail.png";
 import PhoneIcon from "../../assets/icons/phone.png";
 import AvatarPlaceholder from "../../assets/images/avatar.png";
+import styles from "../../styles/contact-card.module.css";
 
 import type { ContactFormData } from "../../types/Contact";
 
@@ -48,8 +47,8 @@ export function CreateContactCard({
   }
 
   return (
-    <div className="card">
-      <img className="card-image" src={AvatarPlaceholder} alt="avatar" />
+    <div className={styles.card}>
+      <img className={styles.cardImage} src={AvatarPlaceholder} alt="avatar" />
 
       <h3>new name</h3>
       <input
@@ -57,7 +56,7 @@ export function CreateContactCard({
         onChange={(event) => setName(event.currentTarget.value)}
       />
 
-      <div className="card-contact-info">
+      <div className={styles.cardContactInfo}>
         <img height="20px" src={PhoneIcon} alt="phone icon" />
         <p>new phone</p>
         <input
@@ -66,7 +65,7 @@ export function CreateContactCard({
         />
       </div>
 
-      <div className="card-contact-info">
+      <div className={styles.cardContactInfo}>
         <img height="20px" src={EmailIcon} alt="e-mail icon" />
         <p>new email</p>
         <input
