@@ -3,20 +3,23 @@ import Loading from "../../components/Loading/Loading";
 import NoteCard from "../../components/NoteCard/NoteCard";
 import { Note } from "../../types/Note";
 import "./Notebook.css";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Notebook() {
   const {
     data: notes,
     isFetching,
     isError,
-  } = useQuery("notes", async () => {
-    const response = await fetch("http://localhost:5000/notes");
-    if (!response.ok) {
-      throw new Error("Erro ao carregar os dados da lista de contatos");
-    }
+  } = useQuery({
+    queryKey: ["notes"],
+    queryFn: async () => {
+      const response = await fetch("http://localhost:5432/notes");
+      if (!response.ok) {
+        throw new Error("Erro ao carregar os dados da lista de contatos");
+      }
 
-    return response.json();
+      return response.json();
+    },
   });
 
   const handleDeleteNote = () => {

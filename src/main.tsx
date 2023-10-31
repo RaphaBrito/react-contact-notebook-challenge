@@ -3,7 +3,7 @@ import "./index.css";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
-import { QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./services/queryClient.ts";
 import Contacts from "./pages/contacts/Contacts.tsx";
 import Notebook from "./pages/notebook/Notebook.tsx";

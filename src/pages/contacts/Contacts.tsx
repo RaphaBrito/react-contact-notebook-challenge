@@ -3,20 +3,23 @@ import ContactCard from "../../components/ContactCard/ContactCard";
 import Loading from "../../components/Loading/Loading";
 import { Contact } from "../../types/Contact";
 import "./Contacts.css";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Contacts() {
   const {
     data: contacts,
     isFetching,
     isError,
-  } = useQuery("contacts", async () => {
-    const response = await fetch("http://localhost:5000/contacts");
-    if (!response.ok) {
-      throw new Error("Erro ao carregar os dados da lista de contatos");
-    }
+  } = useQuery({
+    queryKey: ["contacts"],
+    queryFn: async () => {
+      const response = await fetch("http://localhost:5432/contacts");
+      if (!response.ok) {
+        throw new Error("Erro ao carregar os dados da lista de contatos");
+      }
 
-    return response.json();
+      return response.json();
+    },
   });
 
   const handleDeleteContact = () => {
