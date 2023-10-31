@@ -1,16 +1,20 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
+
 import AppError from "../../components/AppError/Error";
 import Loading from "../../components/Loading/Loading";
 import NoteCard from "../../components/NoteCard/NoteCard";
-import { Note } from "../../types/Note";
+import { queryClient } from "../../services/queryClient";
+
+import type { Note } from "../../types/Note";
+
 import "./Notebook.css";
-import { useQuery } from "@tanstack/react-query";
 
 export default function Notebook() {
   const {
-    data: notes,
+    data: notes = [],
     isFetching,
     isError,
-  } = useQuery({
+  } = useQuery<Note[]>({
     queryKey: ["notes"],
     queryFn: async () => {
       const response = await fetch("http://localhost:5432/notes");
@@ -22,7 +26,19 @@ export default function Notebook() {
     },
   });
 
-  const handleDeleteNote = () => {
+  const deleteMutation = useMutation({
+    mutationFn: ({ id }: { id: number }) => {
+      return fetch(`http://localhost:5432/notes/${id}`, {
+        method: "DELETE",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+    },
+  });
+
+  const handleDeleteNote = (id: number) => {
+    deleteMutation.mutate({ id });
     // Lógica para deleção aqui
   };
 
@@ -45,8 +61,7 @@ export default function Notebook() {
         {notes.map((note: Note) => (
           <NoteCard
             key={note.id}
-            title={note.title}
-            description={note.description}
+            note={note}
             handleDelete={handleDeleteNote}
             handleEdit={handleEditNote}
           />

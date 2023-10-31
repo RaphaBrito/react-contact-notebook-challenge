@@ -1,37 +1,36 @@
-import PhoneIcon from "../../assets/icons/phone.png";
-import EmailIcon from "../../assets/icons/e-mail.png";
-import AvatarPlaceholder from "../../assets/images/avatar.png";
 import "./ContactCard.css";
 
-type ContactCardInput = {
-  name: string;
-  email: string;
-  phone: string;
-  handleDelete: () => void;
+import EmailIcon from "../../assets/icons/e-mail.png";
+import PhoneIcon from "../../assets/icons/phone.png";
+import AvatarPlaceholder from "../../assets/images/avatar.png";
+
+import type { Contact } from "../../types/Contact";
+
+interface ContactCardInput {
+  contact: Contact;
+  handleDelete: (id: number) => void;
   handleEdit: () => void;
-};
+}
 
 export default function ContactCard({
-  name,
-  email,
-  phone,
+  contact,
   handleDelete,
   handleEdit,
 }: ContactCardInput) {
   return (
     <div className="card">
       <img className="card-image" src={AvatarPlaceholder} alt="avatar" />
-      <h3>{name}</h3>
+      <h3>{contact.name}</h3>
       <div className="card-contact-info">
         <img height="20px" src={PhoneIcon} alt="phone icon" />
-        <p>{phone}</p>
+        <p>{contact.phone}</p>
       </div>
       <div className="card-contact-info">
         <img height="20px" src={EmailIcon} alt="e-mail icon" />
-        <p>{email}</p>
+        <p>{contact.email}</p>
       </div>
       <div>
-        <button onClick={handleDelete}>Remover</button>
+        <button onClick={() => handleDelete(contact.id)}>Remover</button>
         <button onClick={handleEdit}>Editar</button>
       </div>
     </div>

@@ -1,16 +1,19 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
+
 import AppError from "../../components/AppError/Error";
 import ContactCard from "../../components/ContactCard/ContactCard";
 import Loading from "../../components/Loading/Loading";
+import { queryClient } from "../../services/queryClient";
 import { Contact } from "../../types/Contact";
+
 import "./Contacts.css";
-import { useQuery } from "@tanstack/react-query";
 
 export default function Contacts() {
   const {
-    data: contacts,
+    data: contacts = [],
     isFetching,
     isError,
-  } = useQuery({
+  } = useQuery<Contact[]>({
     queryKey: ["contacts"],
     queryFn: async () => {
       const response = await fetch("http://localhost:5432/contacts");
@@ -22,7 +25,19 @@ export default function Contacts() {
     },
   });
 
-  const handleDeleteContact = () => {
+  const deleteMutation = useMutation({
+    mutationFn: ({ id }: { id: number }) => {
+      return fetch(`http://localhost:5432/contacts/${id}`, {
+        method: "DELETE",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
+    },
+  });
+
+  const handleDeleteContact = (id: number) => {
+    deleteMutation.mutate({ id });
     // Lógica para deleção aqui
   };
 
@@ -34,7 +49,7 @@ export default function Contacts() {
     return <Loading />;
   }
 
-  if (isError) {
+  if (isError || deleteMutation.isError) {
     return <AppError />;
   }
 
@@ -45,9 +60,7 @@ export default function Contacts() {
         {contacts.map((contact: Contact) => (
           <ContactCard
             key={contact.id}
-            name={contact.name}
-            email={contact.email}
-            phone={contact.phone}
+            contact={contact}
             handleDelete={handleDeleteContact}
             handleEdit={handleEditContact}
           />

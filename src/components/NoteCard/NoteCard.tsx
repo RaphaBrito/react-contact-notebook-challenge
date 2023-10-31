@@ -1,24 +1,24 @@
 import "./NoteCard.css";
 
-type NoteCardInput = {
-  title: string;
-  description: string;
-  handleDelete: () => void;
+import type { Note } from "../../types/Note";
+
+interface NoteCardInput {
+  note: Note;
+  handleDelete: (id: number) => void;
   handleEdit: () => void;
-};
+}
 
 export default function NoteCard({
-  title,
-  description,
+  note,
   handleDelete,
   handleEdit,
 }: NoteCardInput) {
   return (
     <div className="card">
-      <h3>{title}</h3>
-      <p>{description}</p>
+      <h3>{note.title}</h3>
+      <p>{note.description}</p>
       <div>
-        <button onClick={handleDelete}>Remover</button>
+        <button onClick={() => handleDelete(note.id)}>Remover</button>
         <button onClick={handleEdit}>Editar</button>
       </div>
     </div>
