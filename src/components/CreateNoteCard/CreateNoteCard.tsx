@@ -22,11 +22,12 @@ export function CreateNoteCard({ isMutating, onCreate }: CreateNoteCardInput) {
 
     const formData = { title, description } satisfies NoteFormData;
 
+    onCreate(formData);
+
     setTitle("");
     setDescription("");
-    setIsCreating(false);
 
-    onCreate(formData);
+    setIsCreating(false);
   };
 
   const handleCancel = () => {
@@ -39,16 +40,16 @@ export function CreateNoteCard({ isMutating, onCreate }: CreateNoteCardInput) {
 
   return (
     <div className={styles.card}>
-      <h3>new title</h3>
       <input
         value={title}
         onChange={(event) => setTitle(event.currentTarget.value)}
+        placeholder="Title"
       />
 
-      <p>new description</p>
       <input
         value={description}
         onChange={(event) => setDescription(event.currentTarget.value)}
+        placeholder="Description"
       />
 
       <div>

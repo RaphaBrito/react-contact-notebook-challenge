@@ -1,8 +1,5 @@
 import { useState } from "react";
 
-import EmailIcon from "../../assets/icons/e-mail.png";
-import PhoneIcon from "../../assets/icons/phone.png";
-import AvatarPlaceholder from "../../assets/images/avatar.png";
 import styles from "../../styles/contact-card.module.css";
 
 import type { ContactFormData } from "../../types/Contact";
@@ -29,13 +26,13 @@ export function CreateContactCard({
 
     const formData = { name, email, phone } satisfies ContactFormData;
 
-    setName("");
-    setEmail("");
-    setPhone("");
+    onCreate(formData);
 
     setIsCreating(false);
 
-    onCreate(formData);
+    setName("");
+    setEmail("");
+    setPhone("");
   };
 
   const handleCancel = () => {
@@ -48,31 +45,23 @@ export function CreateContactCard({
 
   return (
     <div className={styles.card}>
-      <img className={styles.cardImage} src={AvatarPlaceholder} alt="avatar" />
-
-      <h3>new name</h3>
       <input
         value={name}
         onChange={(event) => setName(event.currentTarget.value)}
+        placeholder="Name"
       />
 
-      <div className={styles.cardContactInfo}>
-        <img height="20px" src={PhoneIcon} alt="phone icon" />
-        <p>new phone</p>
-        <input
-          value={phone}
-          onChange={(event) => setPhone(event.currentTarget.value)}
-        />
-      </div>
+      <input
+        value={phone}
+        onChange={(event) => setPhone(event.currentTarget.value)}
+        placeholder="Phone"
+      />
 
-      <div className={styles.cardContactInfo}>
-        <img height="20px" src={EmailIcon} alt="e-mail icon" />
-        <p>new email</p>
-        <input
-          value={email}
-          onChange={(event) => setEmail(event.currentTarget.value)}
-        />
-      </div>
+      <input
+        value={email}
+        onChange={(event) => setEmail(event.currentTarget.value)}
+        placeholder="Email"
+      />
 
       <div>
         <button onClick={handleCreate}>Salvar</button>

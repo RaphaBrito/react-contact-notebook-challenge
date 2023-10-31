@@ -1,5 +1,3 @@
-import "./Notebook.css";
-
 import { AppError } from "../../components/AppError/Error";
 import { CreateNoteCard } from "../../components/CreateNoteCard/CreateNoteCard";
 import { Loading } from "../../components/Loading/Loading";
@@ -9,6 +7,7 @@ import {
   useNotesCreateMutation,
   useNotesDeleteMutation,
 } from "../../hooks/notes";
+import styles from "../../styles/list.module.css";
 
 import type { Note, NoteFormData } from "../../types/Note";
 
@@ -41,7 +40,7 @@ export function Notebook() {
   return (
     <div>
       <h1>Bloco de notas</h1>
-      <div className="notebook">
+      <div className={styles.listGrid}>
         {notes.map((note: Note) => (
           <NoteCard
             key={note.id}
