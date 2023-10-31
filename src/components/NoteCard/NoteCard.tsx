@@ -8,11 +8,7 @@ interface NoteCardInput {
   handleEdit: () => void;
 }
 
-export default function NoteCard({
-  note,
-  handleDelete,
-  handleEdit,
-}: NoteCardInput) {
+export function NoteCard({ note, handleDelete, handleEdit }: NoteCardInput) {
   return (
     <div className="card">
       <h3>{note.title}</h3>

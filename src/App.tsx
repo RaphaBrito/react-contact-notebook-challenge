@@ -1,7 +1,8 @@
 import "./App.css";
+
 import { Link } from "react-router-dom";
 
-function App() {
+export function App() {
   return (
     <div>
       <h1>Agenda</h1>
@@ -14,5 +15,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

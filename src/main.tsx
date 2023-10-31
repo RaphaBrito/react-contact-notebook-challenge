@@ -5,10 +5,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from "./App.tsx";
-import Contacts from "./pages/contacts/Contacts.tsx";
-import Notebook from "./pages/notebook/Notebook.tsx";
-import { queryClient } from "./services/queryClient.ts";
+import { App } from "./App";
+import { Contacts } from "./pages/contacts/Contacts";
+import { Notebook } from "./pages/notebook/Notebook";
+import { queryClient } from "./services/queryClient";
 
 const router = createBrowserRouter([
   {

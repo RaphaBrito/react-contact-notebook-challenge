@@ -12,7 +12,7 @@ interface ContactCardInput {
   handleEdit: () => void;
 }
 
-export default function ContactCard({
+export function ContactCard({
   contact,
   handleDelete,
   handleEdit,
