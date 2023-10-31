@@ -1,5 +1,3 @@
-import "./CreateNoteCard.css";
-
 import { useState } from "react";
 
 import styles from "../../styles/note-card.module.css";
