@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import styles from "../../styles/note-card.module.css";
+import styles from "../../styles/card.module.css";
 
 import type { NoteFormData } from "../../types/Note";
 
@@ -52,7 +52,7 @@ export function CreateNoteCard({ isMutating, onCreate }: CreateNoteCardInput) {
         placeholder="Description"
       />
 
-      <div>
+      <div className={styles.cardFooter}>
         <button onClick={handleCreate}>Salvar</button>
         <button onClick={handleCancel}>Cancelar</button>
       </div>

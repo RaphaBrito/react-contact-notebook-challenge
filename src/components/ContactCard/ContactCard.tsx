@@ -1,9 +1,7 @@
-// import "./ContactCard.css";
-
 import EmailIcon from "../../assets/icons/e-mail.png";
 import PhoneIcon from "../../assets/icons/phone.png";
 import AvatarPlaceholder from "../../assets/images/avatar.png";
-import styles from "../../styles/contact-card.module.css";
+import styles from "../../styles/card.module.css";
 
 import type { Contact } from "../../types/Contact";
 
@@ -36,9 +34,9 @@ export function ContactCard({
         <p>{contact.email}</p>
       </div>
 
-      <div>
-        <button onClick={() => onDelete(contact.id)}>Remover</button>
+      <div className={styles.cardFooter}>
         <button onClick={onEdit}>Editar</button>
+        <button onClick={() => onDelete(contact.id)}>Remover</button>
       </div>
     </div>
   );

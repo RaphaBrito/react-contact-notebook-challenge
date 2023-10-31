@@ -21,3 +21,7 @@
 .cardContactInfo p {
   margin-left: 8px;
 }
+
+.cardFooter {
+  margin-top: auto;
+}

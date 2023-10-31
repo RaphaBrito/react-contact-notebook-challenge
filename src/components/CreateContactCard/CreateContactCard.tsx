@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import styles from "../../styles/contact-card.module.css";
+import styles from "../../styles/card.module.css";
 
 import type { ContactFormData } from "../../types/Contact";
 
@@ -63,7 +63,7 @@ export function CreateContactCard({
         placeholder="Email"
       />
 
-      <div>
+      <div className={styles.cardFooter}>
         <button onClick={handleCreate}>Salvar</button>
         <button onClick={handleCancel}>Cancelar</button>
       </div>
