@@ -4,3 +4,5 @@ export interface Contact {
   email: string;
   phone: string;
 }
+
+export type ContactFormData = Omit<Contact, "id">;

@@ -1,22 +1,32 @@
 import "./Notebook.css";
 
 import { AppError } from "../../components/AppError/Error";
+import { CreateNoteCard } from "../../components/CreateNoteCard/CreateNoteCard";
 import { Loading } from "../../components/Loading/Loading";
 import { NoteCard } from "../../components/NoteCard/NoteCard";
-import { useNotes, useNotesDeleteMutation } from "../../hooks/notes";
+import {
+  useNotes,
+  useNotesCreateMutation,
+  useNotesDeleteMutation,
+} from "../../hooks/notes";
 
-import type { Note } from "../../types/Note";
+import type { Note, NoteFormData } from "../../types/Note";
 
 export function Notebook() {
   const { notes = [], isPending, isError } = useNotes();
+  const createMutation = useNotesCreateMutation();
   const deleteMutation = useNotesDeleteMutation();
 
-  const handleDeleteNote = (id: number) => {
+  const handleCreate = (formData: NoteFormData) => {
+    createMutation.mutate(formData);
+  };
+
+  const handleDelete = (id: number) => {
     deleteMutation.mutate({ id });
     // Lógica para deleção aqui
   };
 
-  const handleEditNote = () => {
+  const handleEdit = () => {
     // Lógica para edição aqui
   };
 
@@ -36,10 +46,13 @@ export function Notebook() {
           <NoteCard
             key={note.id}
             note={note}
-            handleDelete={handleDeleteNote}
-            handleEdit={handleEditNote}
+            isMutating={deleteMutation.isPending}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
           />
         ))}
+
+        <CreateNoteCard isMutating={false} onCreate={handleCreate} />
       </div>
     </div>
   );

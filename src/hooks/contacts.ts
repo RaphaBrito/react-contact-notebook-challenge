@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { queryClient } from "../services/queryClient";
 
-import type { Contact } from "../types/Contact";
+import type { Contact, ContactFormData } from "../types/Contact";
 
 export function useContacts() {
   const {
@@ -24,11 +24,15 @@ export function useContacts() {
   return { contacts, isPending, isError };
 }
 
-/*export function useContactsCreateMutation() {
+export function useContactsCreateMutation() {
   const mutation = useMutation({
-    mutationFn: ({ id }: { id: number }) => {
-      return fetch(`http://localhost:5432/contacts/${id}`, {
+    mutationFn: (formData: ContactFormData) => {
+      return fetch(`http://localhost:5432/contacts`, {
         method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
     },
     onSuccess: () => {
@@ -37,7 +41,7 @@ export function useContacts() {
   });
 
   return mutation;
-}*/
+}
 
 export function useContactsDeleteMutation() {
   const deleteMutation = useMutation({

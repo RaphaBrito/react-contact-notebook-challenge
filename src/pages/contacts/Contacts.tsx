@@ -1,22 +1,32 @@
+import "./Contacts.css";
+
 import { AppError } from "../../components/AppError/Error";
 import { ContactCard } from "../../components/ContactCard/ContactCard";
+import { CreateContactCard } from "../../components/CreateContactCard/CreateContactCard";
 import { Loading } from "../../components/Loading/Loading";
-import { useContacts, useContactsDeleteMutation } from "../../hooks/contacts";
+import {
+  useContacts,
+  useContactsCreateMutation,
+  useContactsDeleteMutation,
+} from "../../hooks/contacts";
 
-import type { Contact } from "../../types/Contact";
-
-import "./Contacts.css";
+import type { Contact, ContactFormData } from "../../types/Contact";
 
 export function Contacts() {
   const { contacts = [], isPending, isError } = useContacts();
+  const createMutation = useContactsCreateMutation();
   const deleteMutation = useContactsDeleteMutation();
 
-  const handleDeleteContact = (id: number) => {
+  const handleCreate = (formData: ContactFormData) => {
+    createMutation.mutate(formData);
+  };
+
+  const handleDelete = (id: number) => {
     deleteMutation.mutate({ id });
     // Lógica para deleção aqui
   };
 
-  const handleEditContact = () => {
+  const handleEdit = () => {
     // Lógica para edição aqui
   };
 
@@ -36,10 +46,13 @@ export function Contacts() {
           <ContactCard
             key={contact.id}
             contact={contact}
-            handleDelete={handleDeleteContact}
-            handleEdit={handleEditContact}
+            isMutating={deleteMutation.isPending}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
           />
         ))}
+
+        <CreateContactCard isMutating={false} onCreate={handleCreate} />
       </div>
     </div>
   );

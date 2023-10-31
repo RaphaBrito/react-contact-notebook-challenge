@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { queryClient } from "../services/queryClient";
 
-import type { Note } from "../types/Note";
+import type { Note, NoteFormData } from "../types/Note";
 
 export function useNotes() {
   const {
@@ -24,11 +24,15 @@ export function useNotes() {
   return { notes, isPending, isError };
 }
 
-/*export function useNotesCreateMutation() {
+export function useNotesCreateMutation() {
   const mutation = useMutation({
-    mutationFn: ({ id }: { id: number }) => {
-      return fetch(`http://localhost:5432/notes/${id}`, {
+    mutationFn: (formData: NoteFormData) => {
+      return fetch(`http://localhost:5432/notes`, {
         method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
     },
     onSuccess: () => {
@@ -37,7 +41,7 @@ export function useNotes() {
   });
 
   return mutation;
-}*/
+}
 
 export function useNotesDeleteMutation() {
   const mutation = useMutation({

@@ -3,3 +3,5 @@ export interface Note {
   title: string;
   description: string;
 }
+
+export type NoteFormData = Omit<Note, "id">;
