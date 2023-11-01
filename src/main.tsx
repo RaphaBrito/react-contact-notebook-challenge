@@ -7,8 +7,8 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { App } from "./App";
-import { Contacts } from "./pages/contacts/Contacts";
-import { Notebook } from "./pages/notebook/Notebook";
+import { Contacts } from "./pages/contacts";
+import { Notebook } from "./pages/notebook";
 import { queryClient } from "./services/queryClient";
 
 const router = createBrowserRouter([

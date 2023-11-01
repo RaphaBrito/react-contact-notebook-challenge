@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import styles from "../../styles/card.module.css";
+import styles from "../styles/card.module.css";
 
-import type { Note } from "../../types/Note";
+import type { Note } from "../types/Note";
 
 interface EditNoteCardInput {
   note: Note;

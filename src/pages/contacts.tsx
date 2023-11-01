@@ -1,16 +1,16 @@
-import { AppError } from "../../components/AppError/Error";
-import { ContactCard } from "../../components/ContactCard/ContactCard";
-import { CreateContactCard } from "../../components/CreateContactCard/CreateContactCard";
-import { Loading } from "../../components/Loading/Loading";
+import { ContactCard } from "../components/contact-card";
+import { CreateContactCard } from "../components/create-contact-card";
+import { AppError } from "../components/error";
+import { Loading } from "../components/loading";
 import {
   useContacts,
   useContactsCreateMutation,
   useContactsDeleteMutation,
   useContactsEditMutation,
-} from "../../hooks/contacts";
-import styles from "../../styles/list.module.css";
+} from "../hooks/contacts";
+import styles from "../styles/list.module.css";
 
-import type { Contact, ContactFormData } from "../../types/Contact";
+import type { Contact, ContactFormData } from "../types/Contact";
 
 export function Contacts() {
   const { contacts = [], isPending, isError } = useContacts();

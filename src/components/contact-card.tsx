@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-import EmailIcon from "../../assets/icons/e-mail.png";
-import PhoneIcon from "../../assets/icons/phone.png";
-import AvatarPlaceholder from "../../assets/images/avatar.png";
-import styles from "../../styles/card.module.css";
-import { EditContactCard } from "../EditContactCard/EditContactCard";
+import EmailIcon from "../assets/icons/e-mail.png";
+import PhoneIcon from "../assets/icons/phone.png";
+import AvatarPlaceholder from "../assets/images/avatar.png";
+import styles from "../styles/card.module.css";
 
-import type { Contact } from "../../types/Contact";
+import { EditContactCard } from "./edit-contact-card";
+
+import type { Contact } from "../types/Contact";
 
 interface ContactCardInput {
   contact: Contact;

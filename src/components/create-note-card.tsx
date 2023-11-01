@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import styles from "../../styles/card.module.css";
+import styles from "../styles/card.module.css";
 
-import type { NoteFormData } from "../../types/Note";
+import type { NoteFormData } from "../types/Note";
 
 interface CreateNoteCardInput {
   onCreate: (formData: NoteFormData) => void;
