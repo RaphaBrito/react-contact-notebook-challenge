@@ -14,6 +14,7 @@ const config = {
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
     "prettier",
   ],
   parserOptions: {

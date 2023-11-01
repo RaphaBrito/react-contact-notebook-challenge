@@ -2,17 +2,17 @@ import { useState } from "react";
 
 import styles from "../styles/card.module.css";
 
-import { EditNoteCard } from "./edit-card-note";
+import { NoteFormCard } from "./note-form-card";
 
-import type { Note } from "../types/note";
+import type { Note, NoteFormData } from "../types/note";
 
-interface NoteCardInput {
+interface NoteCardProps {
   note: Note;
   onEdit: (formData: Note) => void;
   onDelete: (id: number) => void;
 }
 
-export function NoteCard({ note, onDelete, onEdit }: NoteCardInput) {
+export function NoteCard({ note, onDelete, onEdit }: NoteCardProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleBeginEditing = () => {
@@ -23,8 +23,8 @@ export function NoteCard({ note, onDelete, onEdit }: NoteCardInput) {
     setIsEditing(false);
   };
 
-  const handleEdit = (formData: Note) => {
-    onEdit(formData);
+  const handleEdit = (formData: NoteFormData) => {
+    onEdit({ id: note.id, ...formData });
     setIsEditing(false);
   };
 
@@ -34,9 +34,9 @@ export function NoteCard({ note, onDelete, onEdit }: NoteCardInput) {
 
   if (isEditing) {
     return (
-      <EditNoteCard
+      <NoteFormCard
         note={note}
-        onEdit={handleEdit}
+        onConfirm={handleEdit}
         onCancel={handleCancelEditing}
       />
     );

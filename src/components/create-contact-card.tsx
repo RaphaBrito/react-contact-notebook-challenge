@@ -1,68 +1,28 @@
 import { useState } from "react";
 
-import styles from "../styles/card.module.css";
+import { ContactFormCard } from "./contact-form-card";
 
 import type { ContactFormData } from "../types/contact";
 
-interface CreateContactCardInput {
+interface CreateContactCardProps {
   onCreate: (formData: ContactFormData) => void;
 }
 
-export function CreateContactCard({ onCreate }: CreateContactCardInput) {
+export function CreateContactCard({ onCreate }: CreateContactCardProps) {
   const [isCreating, setIsCreating] = useState(false);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-
-  const handleCreate = () => {
-    if (name.length === 0 || email.length === 0 || phone.length === 0) {
-      return;
-    }
-
-    const formData = { name, email, phone } satisfies ContactFormData;
-
+  const handleCreate = (formData: ContactFormData) => {
     onCreate(formData);
-
     setIsCreating(false);
-
-    setName("");
-    setEmail("");
-    setPhone("");
   };
 
   const handleCancel = () => {
     setIsCreating(false);
   };
 
-  if (!isCreating) {
-    return <button onClick={() => setIsCreating(true)}>+</button>;
+  if (isCreating) {
+    return <ContactFormCard onConfirm={handleCreate} onCancel={handleCancel} />;
   }
 
-  return (
-    <div className={styles.card}>
-      <input
-        value={name}
-        onChange={(event) => setName(event.currentTarget.value)}
-        placeholder="Name"
-      />
-
-      <input
-        value={phone}
-        onChange={(event) => setPhone(event.currentTarget.value)}
-        placeholder="Phone"
-      />
-
-      <input
-        value={email}
-        onChange={(event) => setEmail(event.currentTarget.value)}
-        placeholder="Email"
-      />
-
-      <div className={styles.cardFooter}>
-        <button onClick={handleCreate}>Salvar</button>
-        <button onClick={handleCancel}>Cancelar</button>
-      </div>
-    </div>
-  );
+  return <button onClick={() => setIsCreating(true)}>+</button>;
 }

@@ -1,31 +1,18 @@
 import { useState } from "react";
 
-import styles from "../styles/card.module.css";
+import { NoteFormCard } from "./note-form-card";
 
 import type { NoteFormData } from "../types/note";
 
-interface CreateNoteCardInput {
+interface CreateNoteCardProps {
   onCreate: (formData: NoteFormData) => void;
 }
 
-export function CreateNoteCard({ onCreate }: CreateNoteCardInput) {
+export function CreateNoteCard({ onCreate }: CreateNoteCardProps) {
   const [isCreating, setIsCreating] = useState(false);
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
-  const handleCreate = () => {
-    if (title.length === 0 || description.length === 0) {
-      return;
-    }
-
-    const formData = { title, description } satisfies NoteFormData;
-
+  const handleCreate = (formData: NoteFormData) => {
     onCreate(formData);
-
-    setTitle("");
-    setDescription("");
-
     setIsCreating(false);
   };
 
@@ -33,28 +20,9 @@ export function CreateNoteCard({ onCreate }: CreateNoteCardInput) {
     setIsCreating(false);
   };
 
-  if (!isCreating) {
-    return <button onClick={() => setIsCreating(true)}>+</button>;
+  if (isCreating) {
+    return <NoteFormCard onConfirm={handleCreate} onCancel={handleCancel} />;
   }
 
-  return (
-    <div className={styles.card}>
-      <input
-        value={title}
-        onChange={(event) => setTitle(event.currentTarget.value)}
-        placeholder="Title"
-      />
-
-      <input
-        value={description}
-        onChange={(event) => setDescription(event.currentTarget.value)}
-        placeholder="Description"
-      />
-
-      <div className={styles.cardFooter}>
-        <button onClick={handleCreate}>Salvar</button>
-        <button onClick={handleCancel}>Cancelar</button>
-      </div>
-    </div>
-  );
+  return <button onClick={() => setIsCreating(true)}>+</button>;
 }

@@ -27,7 +27,7 @@ export function Notebook() {
   };
 
   const handleDelete = (id: number) => {
-    deleteMutation.mutate({ id });
+    deleteMutation.mutate(id);
   };
 
   if (isPending) {

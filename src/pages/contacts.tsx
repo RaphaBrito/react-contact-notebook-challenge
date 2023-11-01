@@ -27,7 +27,7 @@ export function Contacts() {
   };
 
   const handleDelete = (id: number) => {
-    deleteMutation.mutate({ id });
+    deleteMutation.mutate(id);
   };
 
   if (isPending) {

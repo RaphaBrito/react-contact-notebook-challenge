@@ -5,17 +5,17 @@ import PhoneIcon from "../assets/icons/phone.png";
 import AvatarPlaceholder from "../assets/images/avatar.png";
 import styles from "../styles/card.module.css";
 
-import { EditContactCard } from "./edit-contact-card";
+import { ContactFormCard } from "./contact-form-card";
 
-import type { Contact } from "../types/contact";
+import type { Contact, ContactFormData } from "../types/contact";
 
-interface ContactCardInput {
+interface ContactCardProps {
   contact: Contact;
   onEdit: (formData: Contact) => void;
   onDelete: (id: number) => void;
 }
 
-export function ContactCard({ contact, onDelete, onEdit }: ContactCardInput) {
+export function ContactCard({ contact, onDelete, onEdit }: ContactCardProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleBeginEditing = () => {
@@ -26,8 +26,8 @@ export function ContactCard({ contact, onDelete, onEdit }: ContactCardInput) {
     setIsEditing(false);
   };
 
-  const handleEdit = (formData: Contact) => {
-    onEdit(formData);
+  const handleEdit = (formData: ContactFormData) => {
+    onEdit({ id: contact.id, ...formData });
     setIsEditing(false);
   };
 
@@ -37,9 +37,9 @@ export function ContactCard({ contact, onDelete, onEdit }: ContactCardInput) {
 
   if (isEditing) {
     return (
-      <EditContactCard
+      <ContactFormCard
         contact={contact}
-        onEdit={handleEdit}
+        onConfirm={handleEdit}
         onCancel={handleCancelEditing}
       />
     );

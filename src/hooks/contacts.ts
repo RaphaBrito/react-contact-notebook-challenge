@@ -1,6 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-
-import { queryClient } from "../services/queryClient";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { Contact, ContactFormData } from "../types/contact";
 
@@ -25,6 +23,8 @@ export function useContacts() {
 }
 
 export function useContactsCreateMutation() {
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (formData: ContactFormData) => {
       return fetch(`http://localhost:5432/contacts`, {
@@ -44,6 +44,8 @@ export function useContactsCreateMutation() {
 }
 
 export function useContactsEditMutation() {
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (contact: Contact) => {
       return fetch(`http://localhost:5432/contacts/${contact.id}`, {
@@ -63,8 +65,10 @@ export function useContactsEditMutation() {
 }
 
 export function useContactsDeleteMutation() {
-  const deleteMutation = useMutation({
-    mutationFn: ({ id }: { id: number }) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (id: number) => {
       return fetch(`http://localhost:5432/contacts/${id}`, {
         method: "DELETE",
       });
@@ -74,5 +78,5 @@ export function useContactsDeleteMutation() {
     },
   });
 
-  return deleteMutation;
+  return mutation;
 }

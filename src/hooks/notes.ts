@@ -1,6 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-
-import { queryClient } from "../services/queryClient";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { Note, NoteFormData } from "../types/note";
 
@@ -25,6 +23,8 @@ export function useNotes() {
 }
 
 export function useNotesCreateMutation() {
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (formData: NoteFormData) => {
       return fetch(`http://localhost:5432/notes`, {
@@ -44,6 +44,8 @@ export function useNotesCreateMutation() {
 }
 
 export function useNotesEditMutation() {
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (note: Note) => {
       return fetch(`http://localhost:5432/notes/${note.id}`, {
@@ -63,8 +65,10 @@ export function useNotesEditMutation() {
 }
 
 export function useNotesDeleteMutation() {
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
-    mutationFn: ({ id }: { id: number }) => {
+    mutationFn: (id: number) => {
       return fetch(`http://localhost:5432/notes/${id}`, {
         method: "DELETE",
       });
