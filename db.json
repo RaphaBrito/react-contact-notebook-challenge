@@ -1,12 +1,6 @@
 {
   "contacts": [
     {
-      "id": 1,
-      "name": "Raphael",
-      "email": "brito@gmail.com",
-      "phone": "+558190836728"
-    },
-    {
       "id": 2,
       "name": "Cesar",
       "email": "cesar@gmail.com",

@@ -3,6 +3,7 @@ import ContactCard from "../../components/ContactCard/ContactCard";
 import Loading from "../../components/Loading/Loading";
 import { Contact } from "../../types/Contact";
 import { useState } from "react";
+import { Link } from "react-router-dom"; // Importe o componente Link
 import "./Contacts.css";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
@@ -123,6 +124,9 @@ export default function Contacts() {
   return (
     <div>
       <h1>Contatos</h1>
+      <Link to="/" className="back-button">
+        Voltar
+      </Link>
       <div className="contacts">
         <div className="contact-form-card">
           <div className="contact-form">

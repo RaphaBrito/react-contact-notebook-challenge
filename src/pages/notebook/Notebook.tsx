@@ -1,8 +1,9 @@
 import AppError from "../../components/AppError/Error";
-import Loading from "../../components/Loading/Loading";
 import NoteCard from "../../components/NoteCard/NoteCard";
+import Loading from "../../components/Loading/Loading";
 import { Note } from "../../types/Note";
 import { useState } from "react";
+import { Link } from "react-router-dom"; // Importe o componente Link
 import "./Notebook.css";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
@@ -113,6 +114,9 @@ export default function Notebook() {
   return (
     <div>
       <h1>Bloco de notas</h1>
+      <Link to="/" className="back-button">
+        Voltar
+      </Link>
       <div className="notebook">
         <div className="note-form-card">
           <div className="note-form">
