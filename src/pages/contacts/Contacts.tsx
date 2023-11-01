@@ -6,6 +6,7 @@ import {
   useContacts,
   useContactsCreateMutation,
   useContactsDeleteMutation,
+  useContactsEditMutation,
 } from "../../hooks/contacts";
 import styles from "../../styles/list.module.css";
 
@@ -14,19 +15,19 @@ import type { Contact, ContactFormData } from "../../types/Contact";
 export function Contacts() {
   const { contacts = [], isPending, isError } = useContacts();
   const createMutation = useContactsCreateMutation();
+  const editMutation = useContactsEditMutation();
   const deleteMutation = useContactsDeleteMutation();
 
   const handleCreate = (formData: ContactFormData) => {
     createMutation.mutate(formData);
   };
 
-  const handleDelete = (id: number) => {
-    deleteMutation.mutate({ id });
-    // Lógica para deleção aqui
+  const handleEdit = (contact: Contact) => {
+    editMutation.mutate(contact);
   };
 
-  const handleEdit = () => {
-    // Lógica para edição aqui
+  const handleDelete = (id: number) => {
+    deleteMutation.mutate({ id });
   };
 
   if (isPending) {
@@ -45,13 +46,12 @@ export function Contacts() {
           <ContactCard
             key={contact.id}
             contact={contact}
-            isMutating={deleteMutation.isPending}
             onDelete={handleDelete}
             onEdit={handleEdit}
           />
         ))}
 
-        <CreateContactCard isMutating={false} onCreate={handleCreate} />
+        <CreateContactCard onCreate={handleCreate} />
       </div>
     </div>
   );

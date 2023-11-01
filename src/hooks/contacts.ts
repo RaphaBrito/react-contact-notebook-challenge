@@ -43,6 +43,25 @@ export function useContactsCreateMutation() {
   return mutation;
 }
 
+export function useContactsEditMutation() {
+  const mutation = useMutation({
+    mutationFn: (contact: Contact) => {
+      return fetch(`http://localhost:5432/contacts/${contact.id}`, {
+        method: "PUT",
+        body: JSON.stringify(contact),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
+    },
+  });
+
+  return mutation;
+}
+
 export function useContactsDeleteMutation() {
   const deleteMutation = useMutation({
     mutationFn: ({ id }: { id: number }) => {

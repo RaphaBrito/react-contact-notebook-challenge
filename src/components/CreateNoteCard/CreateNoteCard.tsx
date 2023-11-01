@@ -5,11 +5,10 @@ import styles from "../../styles/card.module.css";
 import type { NoteFormData } from "../../types/Note";
 
 interface CreateNoteCardInput {
-  isMutating: boolean;
   onCreate: (formData: NoteFormData) => void;
 }
 
-export function CreateNoteCard({ isMutating, onCreate }: CreateNoteCardInput) {
+export function CreateNoteCard({ onCreate }: CreateNoteCardInput) {
   const [isCreating, setIsCreating] = useState(false);
 
   const [title, setTitle] = useState("");

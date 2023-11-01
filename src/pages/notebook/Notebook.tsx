@@ -6,6 +6,7 @@ import {
   useNotes,
   useNotesCreateMutation,
   useNotesDeleteMutation,
+  useNotesEditMutation,
 } from "../../hooks/notes";
 import styles from "../../styles/list.module.css";
 
@@ -14,19 +15,19 @@ import type { Note, NoteFormData } from "../../types/Note";
 export function Notebook() {
   const { notes = [], isPending, isError } = useNotes();
   const createMutation = useNotesCreateMutation();
+  const editMutation = useNotesEditMutation();
   const deleteMutation = useNotesDeleteMutation();
 
   const handleCreate = (formData: NoteFormData) => {
     createMutation.mutate(formData);
   };
 
-  const handleDelete = (id: number) => {
-    deleteMutation.mutate({ id });
-    // Lógica para deleção aqui
+  const handleEdit = (note: Note) => {
+    editMutation.mutate(note);
   };
 
-  const handleEdit = () => {
-    // Lógica para edição aqui
+  const handleDelete = (id: number) => {
+    deleteMutation.mutate({ id });
   };
 
   if (isPending) {
@@ -45,13 +46,12 @@ export function Notebook() {
           <NoteCard
             key={note.id}
             note={note}
-            isMutating={deleteMutation.isPending}
             onDelete={handleDelete}
             onEdit={handleEdit}
           />
         ))}
 
-        <CreateNoteCard isMutating={false} onCreate={handleCreate} />
+        <CreateNoteCard onCreate={handleCreate} />
       </div>
     </div>
   );

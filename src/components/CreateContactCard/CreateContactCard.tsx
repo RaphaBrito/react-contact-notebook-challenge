@@ -5,14 +5,10 @@ import styles from "../../styles/card.module.css";
 import type { ContactFormData } from "../../types/Contact";
 
 interface CreateContactCardInput {
-  isMutating: boolean;
   onCreate: (formData: ContactFormData) => void;
 }
 
-export function CreateContactCard({
-  isMutating,
-  onCreate,
-}: CreateContactCardInput) {
+export function CreateContactCard({ onCreate }: CreateContactCardInput) {
   const [isCreating, setIsCreating] = useState(false);
 
   const [name, setName] = useState("");

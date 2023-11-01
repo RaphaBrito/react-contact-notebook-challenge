@@ -1,23 +1,49 @@
+import { useState } from "react";
+
 import EmailIcon from "../../assets/icons/e-mail.png";
 import PhoneIcon from "../../assets/icons/phone.png";
 import AvatarPlaceholder from "../../assets/images/avatar.png";
 import styles from "../../styles/card.module.css";
+import { EditContactCard } from "../EditContactCard/EditContactCard";
 
 import type { Contact } from "../../types/Contact";
 
 interface ContactCardInput {
   contact: Contact;
-  isMutating: boolean;
+  onEdit: (formData: Contact) => void;
   onDelete: (id: number) => void;
-  onEdit: () => void;
 }
 
-export function ContactCard({
-  contact,
-  isMutating,
-  onDelete,
-  onEdit,
-}: ContactCardInput) {
+export function ContactCard({ contact, onDelete, onEdit }: ContactCardInput) {
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleBeginEditing = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancelEditing = () => {
+    setIsEditing(false);
+  };
+
+  const handleEdit = (formData: Contact) => {
+    onEdit(formData);
+    setIsEditing(false);
+  };
+
+  const handleDelete = () => {
+    onDelete(contact.id);
+  };
+
+  if (isEditing) {
+    return (
+      <EditContactCard
+        contact={contact}
+        onEdit={handleEdit}
+        onCancel={handleCancelEditing}
+      />
+    );
+  }
+
   return (
     <div className={styles.card}>
       <img className={styles.cardImage} src={AvatarPlaceholder} alt="avatar" />
@@ -35,8 +61,8 @@ export function ContactCard({
       </div>
 
       <div className={styles.cardFooter}>
-        <button onClick={onEdit}>Editar</button>
-        <button onClick={() => onDelete(contact.id)}>Remover</button>
+        <button onClick={handleBeginEditing}>Editar</button>
+        <button onClick={handleDelete}>Remover</button>
       </div>
     </div>
   );

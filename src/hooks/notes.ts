@@ -43,6 +43,25 @@ export function useNotesCreateMutation() {
   return mutation;
 }
 
+export function useNotesEditMutation() {
+  const mutation = useMutation({
+    mutationFn: (note: Note) => {
+      return fetch(`http://localhost:5432/notes/${note.id}`, {
+        method: "PUT",
+        body: JSON.stringify(note),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+    },
+  });
+
+  return mutation;
+}
+
 export function useNotesDeleteMutation() {
   const mutation = useMutation({
     mutationFn: ({ id }: { id: number }) => {
