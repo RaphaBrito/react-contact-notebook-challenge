@@ -40,7 +40,7 @@ export default function Notebook() {
   );
 
   const handleDeleteNote = (note: Note) => {
-    deleteNoteMutation.mutate(note.id);
+    deleteNoteMutation.mutate(note.id!);
   };
 
   const editContactMutation = useMutation(
@@ -67,7 +67,11 @@ export default function Notebook() {
     }
   );
 
-  const handleEditNote = (note: Note, newTitle: string, newDescription: string) => {
+  const handleEditNote = (
+    note: Note,
+    newTitle: string,
+    newDescription: string
+  ) => {
     editContactMutation.mutate({
       ...note,
       title: newTitle,
@@ -114,34 +118,38 @@ export default function Notebook() {
   return (
     <div>
       <h1>Bloco de notas</h1>
-      <Link to="/" className="back-button">
-        Voltar
-      </Link>
-      <div className="notebook">
-        <div className="note-form-card">
-          <div className="note-form">
-            <h2>Criar uma nova nota</h2>
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Título"
-                value={newNote.title}
-                onChange={(e) => setNewNote({ ...newNote, title: e.target.value })}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Descrição"
-                value={newNote.description}
-                onChange={(e) => setNewNote({ ...newNote, description: e.target.value })}
-              />
-            </div>
-            <button className="create-button" onClick={handleCreateNote}>
-              Criar Nota
-            </button>
+      <div className="note-form-card">
+        <div className="note-form">
+          <h2>Criar uma nova nota</h2>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Título"
+              value={newNote.title}
+              onChange={(e) =>
+                setNewNote({ ...newNote, title: e.target.value })
+              }
+            />
           </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Descrição"
+              value={newNote.description}
+              onChange={(e) =>
+                setNewNote({ ...newNote, description: e.target.value })
+              }
+            />
+          </div>
+          <Link to="/">
+            <button className="back-button">Voltar</button>
+          </Link>
+          <button className="create-button" onClick={handleCreateNote}>
+            Criar Nota
+          </button>
         </div>
+      </div>
+      <div className="notebook">
         {notes.map((note: Note) => (
           <NoteCard
             key={note.id}
