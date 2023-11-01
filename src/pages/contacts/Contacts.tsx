@@ -2,6 +2,8 @@ import AppError from "../../components/AppError/Error";
 import ContactCard from "../../components/ContactCard/ContactCard";
 import Loading from "../../components/Loading/Loading";
 import { Contact } from "../../types/Contact";
+import { useState } from "react";
+import { Link } from "react-router-dom"; // Importe o componente Link
 import "./Contacts.css";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
@@ -38,7 +40,7 @@ export default function Contacts() {
   );
 
   const handleDeleteContact = (contact: Contact) => {
-    deleteContactMutation.mutate(contact.id);
+    deleteContactMutation.mutate(contact.id!);
   };
 
   const editContactMutation = useMutation(
@@ -60,7 +62,7 @@ export default function Contacts() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("contacts"); // Invalida a query de tarefas para atualizar a lista
+        queryClient.invalidateQueries("contacts");
       },
     }
   );
@@ -79,6 +81,38 @@ export default function Contacts() {
     });
   };
 
+  const [newContact, setNewContact] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
+
+  const createContactMutation = useMutation(
+    async (newContactData: Contact) => {
+      const response = await fetch("http://localhost:3001/contacts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newContactData),
+      });
+      if (!response.ok) {
+        throw new Error("Falha ao criar o contato");
+      }
+      return response.json();
+    },
+    {
+      onSuccess: () => {
+        setNewContact({ name: "", email: "", phone: "" });
+        queryClient.invalidateQueries("contacts");
+      },
+    }
+  );
+
+  const handleCreateContact = () => {
+    createContactMutation.mutate(newContact);
+  };
+
   if (isFetching) {
     return <Loading />;
   }
@@ -90,6 +124,47 @@ export default function Contacts() {
   return (
     <div>
       <h1>Contatos</h1>
+      <div className="contact-form-card">
+        <div className="contact-form">
+          <h2>Criar um novo contato</h2>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Nome"
+              value={newContact.name}
+              onChange={(e) =>
+                setNewContact({ ...newContact, name: e.target.value })
+              }
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Email"
+              value={newContact.email}
+              onChange={(e) =>
+                setNewContact({ ...newContact, email: e.target.value })
+              }
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Telefone"
+              value={newContact.phone}
+              onChange={(e) =>
+                setNewContact({ ...newContact, phone: e.target.value })
+              }
+            />
+          </div>
+          <Link to="/">
+            <button className="back-button">Voltar</button>
+          </Link>
+          <button className="create-button" onClick={handleCreateContact}>
+            Criar Contato
+          </button>
+        </div>
+      </div>
       <div className="contacts">
         {contacts.map((contact: Contact) => (
           <ContactCard
