@@ -10,7 +10,7 @@ import {
 } from "../hooks/contacts";
 import styles from "../styles/list.module.css";
 
-import type { Contact, ContactFormData } from "../types/Contact";
+import type { Contact, ContactFormData } from "../types/contact";
 
 export function Contacts() {
   const { contacts = [], isPending, isError } = useContacts();
@@ -34,7 +34,7 @@ export function Contacts() {
     return <Loading />;
   }
 
-  if (isError || deleteMutation.isError) {
+  if (isError) {
     return <AppError />;
   }
 

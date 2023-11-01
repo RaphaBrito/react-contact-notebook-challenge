@@ -10,7 +10,7 @@ import {
 } from "../hooks/notes";
 import styles from "../styles/list.module.css";
 
-import type { Note, NoteFormData } from "../types/Note";
+import type { Note, NoteFormData } from "../types/note";
 
 export function Notebook() {
   const { notes = [], isPending, isError } = useNotes();

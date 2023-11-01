@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { queryClient } from "../services/queryClient";
 
-import type { Note, NoteFormData } from "../types/Note";
+import type { Note, NoteFormData } from "../types/note";
 
 export function useNotes() {
   const {
@@ -14,7 +14,7 @@ export function useNotes() {
     queryFn: async () => {
       const response = await fetch("http://localhost:5432/notes");
       if (!response.ok) {
-        throw new Error("Erro ao carregar os dados da lista de contatos");
+        throw new Error("Erro ao carregar os dados da lista de notas");
       }
 
       return response.json();

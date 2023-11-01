@@ -4,7 +4,7 @@ import styles from "../styles/card.module.css";
 
 import { EditNoteCard } from "./edit-card-note";
 
-import type { Note } from "../types/Note";
+import type { Note } from "../types/note";
 
 interface NoteCardInput {
   note: Note;

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { queryClient } from "../services/queryClient";
 
-import type { Contact, ContactFormData } from "../types/Contact";
+import type { Contact, ContactFormData } from "../types/contact";
 
 export function useContacts() {
   const {

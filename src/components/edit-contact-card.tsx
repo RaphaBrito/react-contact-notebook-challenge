@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import styles from "../styles/card.module.css";
 
-import type { Contact } from "../types/Contact";
+import type { Contact } from "../types/contact";
 
 interface EditContactCardInput {
   contact: Contact;

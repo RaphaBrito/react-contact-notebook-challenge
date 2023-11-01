@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import styles from "../styles/card.module.css";
 
-import type { ContactFormData } from "../types/Contact";
+import type { ContactFormData } from "../types/contact";
 
 interface CreateContactCardInput {
   onCreate: (formData: ContactFormData) => void;

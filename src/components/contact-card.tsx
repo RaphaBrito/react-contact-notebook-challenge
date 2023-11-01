@@ -7,7 +7,7 @@ import styles from "../styles/card.module.css";
 
 import { EditContactCard } from "./edit-contact-card";
 
-import type { Contact } from "../types/Contact";
+import type { Contact } from "../types/contact";
 
 interface ContactCardInput {
   contact: Contact;
